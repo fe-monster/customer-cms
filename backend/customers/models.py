@@ -6,6 +6,7 @@ class Customer(models.Model):
     last_name  = models.CharField(max_length=100)
     email      = models.EmailField(unique=True)
     phone      = models.CharField(max_length=20)
+    custom_fields = models.JSONField(default=list, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
