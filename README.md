@@ -105,48 +105,30 @@ Request → urls.py → views.py → serializers.py → models.py → PostgreSQL
 - React Hook Form + Zod — form validation
 
 ## Project Structure
+## Project Structure
+
+```text
 customer-cms/
-
 ├── docker-compose.yml
-
 ├── README.md
-
 ├── backend/
-
 │   ├── Dockerfile
-
 │   ├── requirements.txt
-
 │   ├── config/
-
 │   │   ├── settings.py
-
 │   │   └── urls.py
-
 │   └── customers/
-
 │       ├── models.py
-
 │       ├── serializers.py
-
 │       ├── views.py
-
 │       └── urls.py
-
 └── frontend/
-
-├── Dockerfile
-
-└── app/
-
-├── api/
-
-├── components/
-
-├── hooks/
-
-├── store/
-
-├── types/
-
-└── routes/
+    ├── Dockerfile
+    └── app/
+        ├── api/
+        ├── components/
+        ├── hooks/
+        ├── store/
+        ├── types/
+        └── routes/
+```
