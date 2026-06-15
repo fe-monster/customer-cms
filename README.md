@@ -82,21 +82,13 @@ Request → urls.py → views.py → serializers.py → models.py → PostgreSQL
 - `PageNumberPagination` — 20 items per page
 
 ### Frontend
-┌─────────────────────────────────────────┐
+## UI Layout
 
-│                 Header                  │
+The app is split into two panels:
 
-│         (Search + Sort controls)        │
-
-├──────────────────┬──────────────────────┤
-
-│   Customer List  │   Customer Detail    │
-
-│  (Infinite scroll│  (View / Edit /      │
-
-│   + Sorting)     │   Delete)            │
-
-└──────────────────┴──────────────────────┘
+- **Left panel** — Customer list with infinite scroll and column sorting
+- **Right panel** — Customer details with view, edit, and delete actions
+- **Header** — Search bar and sort controls
 
 **State management:**
 - URL params — search, ordering, selected customer id
