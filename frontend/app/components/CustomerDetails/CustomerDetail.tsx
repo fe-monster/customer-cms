@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router";
 import { useCustomer } from "../../hooks/useCustomer";
 import { useCustomersStore } from "../../store/customers.store";
 import { useCustomerDetailsStore } from "../../store/customer-details.store";
@@ -28,7 +27,7 @@ export function CustomerDetail() {
     removeCustomField, 
     editingFieldIndex,
     setEditingFieldIndex, 
-    reset 
+    reset,
   } = useCustomerDetailsStore();
   const { 
     customer, 
@@ -78,6 +77,7 @@ export function CustomerDetail() {
   if (!customer) return null;
 
   const handleSave = form.handleSubmit((values) => {
+    console.log('hi')
     update({ ...values, custom_fields: customFields });
     setIsEditing(false);
   });
@@ -172,29 +172,6 @@ export function CustomerDetail() {
                 setEditingFieldIndex={setEditingFieldIndex}
                 removeCustomField={removeCustomField}
               />
-              // <>
-              //   <input
-              //     className="border rounded px-2 py-1 text-sm w-1/3"
-              //     placeholder="Key"
-              //     value={field.key}
-              //     onChange={(e) => updateCustomField(index, e.target.value, field.value)}
-              //     // onBlur={() => setEditingFieldIndex(null)}
-              //     autoFocus
-              //   />
-              //   <input
-              //     className="border rounded px-2 py-1 text-sm flex-1"
-              //     placeholder="Value"
-              //     value={field.value}
-              //     onChange={(e) => updateCustomField(index, field.key, e.target.value)}
-              //   />
-              //   <Button
-              //     variant="ghost"
-              //     size="sm"
-              //     onClick={() => removeCustomField(index)}
-              //   >
-              //     ✕
-              //   </Button>
-              // </>
             ) : (
               <>
                 <Badge variant="outline">{field.key}</Badge>

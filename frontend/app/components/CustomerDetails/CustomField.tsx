@@ -5,34 +5,49 @@ interface CustomFieldProps {
     index: number;
     updateCustomField: (index: number, key: string, value: string) => void;
     setEditingFieldIndex: (index: number | null) => void;
-    removeCustomField: (index: number) => void
+    removeCustomField: (index: number) => void;
 }
 const CustomField = ({ field , updateCustomField,index,setEditingFieldIndex,removeCustomField}: CustomFieldProps) => {
+    const handleAddCustomField = () => {
+        setEditingFieldIndex(null);
+    }
+
+    const handleRemoveCustomField = () => {
+        removeCustomField(index);
+    }
+
+    const handleUpdateKey = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateCustomField(index, e.target.value, field.value);
+    }
+
+    const handleUpdateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateCustomField(index, field.key, e.target.value);
+    }
     return (
               <>
     <input
       className="border rounded px-2 py-1 text-sm w-1/3"
       placeholder="Key"
       value={field.key}
-      onChange={(e) => updateCustomField(index, e.target.value, field.value)}
+      onChange={handleUpdateKey}
     />
     <input
       className="border rounded px-2 py-1 text-sm flex-1"
       placeholder="Value"
       value={field.value}
-      onChange={(e) => updateCustomField(index, field.key, e.target.value)}
+      onChange={handleUpdateValue}
     />
     <Button
       variant="ghost"
       size="sm"
-      onClick={() => setEditingFieldIndex(null)}
+      onClick={handleAddCustomField}
     >
       ✓
     </Button>
     <Button
       variant="ghost"
       size="sm"
-      onClick={() => removeCustomField(index)}
+      onClick={handleRemoveCustomField}
     >
       ✕
     </Button>

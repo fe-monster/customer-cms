@@ -1,14 +1,13 @@
 import { useSearchParams } from "react-router";
 import { Input } from "./ui/input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useDebounce from "~/hooks/useDebounce";
 
 export function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") ?? "");
 
-  // debounce — запрос только через 300мс после последнего символа
-  useEffect(() => {
-    const timer = setTimeout(() => {
+  const handleSearch = () => {
       setSearchParams((prev) => {
         const next = new URLSearchParams(prev);
         if (search) {
@@ -18,10 +17,13 @@ export function Header() {
         }
         return next;
       });
-    }, 300);
+    }
 
-    return () => clearTimeout(timer);
-  }, [search]);
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.target.value);
+    }
+
+  useDebounce(handleSearch, 300, [search]);
 
   return (
     <header className="border-b px-6 py-3 flex items-center justify-between">
@@ -31,7 +33,7 @@ export function Header() {
         <Input
           placeholder="Search by name, email, phone..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleChange}
           className="w-80"
         />
       </div>
