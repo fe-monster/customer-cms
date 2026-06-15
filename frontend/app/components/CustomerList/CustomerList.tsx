@@ -94,7 +94,6 @@ useEffect(() => {
       {/* Infinite scroll trigger */}
       <div ref={bottomRef} className="py-8 text-center text-sm text-muted-foreground border-t">
         <Footer isFetchingNextPage hasNextPage />
-        {/* {isFetchingNextPage ? "Loading more..." : hasNextPage ? "Scroll for more" : "All customers loaded"} */}
       </div>
     </div>
   );
