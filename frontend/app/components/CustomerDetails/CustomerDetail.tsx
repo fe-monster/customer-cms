@@ -77,7 +77,6 @@ export function CustomerDetail() {
   if (!customer) return null;
 
   const handleSave = form.handleSubmit((values) => {
-    console.log('hi')
     update({ ...values, custom_fields: customFields });
     setIsEditing(false);
   });

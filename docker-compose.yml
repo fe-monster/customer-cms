@@ -1,3 +1,30 @@
+# # services:
+# #   db:
+# #     image: postgres:16
+# #     environment:
+# #       POSTGRES_DB: customer_cms
+# #       POSTGRES_USER: postgres
+# #       POSTGRES_PASSWORD: postgres
+# #     ports:
+# #       - "5432:5432"
+# #     volumes:
+# #       - postgres_data:/var/lib/postgresql/data
+
+# #   backend:
+# #     build: ./backend
+# #     ports:
+# #       - "8000:8000"
+# #     environment:
+# #       - DJANGO_SETTINGS_MODULE=config.settings
+# #     depends_on:
+# #       - db
+# #     volumes:
+# #       - ./backend:/app
+
+# # volumes:
+# #   postgres_data:
+  
+
 # services:
 #   db:
 #     image: postgres:16
@@ -9,6 +36,11 @@
 #       - "5432:5432"
 #     volumes:
 #       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U postgres"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 5
 
 #   backend:
 #     build: ./backend
@@ -17,13 +49,13 @@
 #     environment:
 #       - DJANGO_SETTINGS_MODULE=config.settings
 #     depends_on:
-#       - db
+#       db:
+#         condition: service_healthy
 #     volumes:
 #       - ./backend:/app
 
 # volumes:
 #   postgres_data:
-  
 
 services:
   db:
@@ -53,6 +85,16 @@ services:
         condition: service_healthy
     volumes:
       - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
